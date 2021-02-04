@@ -12,7 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jankrb.fff_app.ui.navbar.BottomNavigationViewBehavior
 import com.jankrb.fff_app.utils.FontCache
 
 
