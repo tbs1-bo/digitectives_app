@@ -10,4 +10,6 @@
 
     <color name="gradient_start">#37A3EC</color>
     <color name="gradient_stop">#2B84BE</color>
+
+    <color name="navbar_background">#AAAAAA</color>
 </resources>
