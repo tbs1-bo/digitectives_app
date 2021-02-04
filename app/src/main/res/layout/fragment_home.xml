@@ -8,147 +8,158 @@
     android:paddingRight="20dp"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sync_data_btn"
-        android:layout_width="0dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rounded_corners"
-        android:text="@string/home_sync_data_btn"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/stats_box"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/home_stats_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sync_data_btn" />
-
-    <TextView
-        android:id="@+id/stats_box_title"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/home_stats_box_title"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/stats_box"
-        app:layout_constraintTop_toTopOf="@+id/stats_box" />
-
-    <TextView
-        android:id="@+id/home_recent_title"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/home_recent_title"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box" />
-
-    <TextView
-        android:id="@+id/stats_box_today_title"
-        android:layout_width="123dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/stats_box_today_title"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/stats_box"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
-
-    <TextView
-        android:id="@+id/stats_box_today_value"
-        android:layout_width="72dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/stats_box_today_value"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/stats_box_today_title"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
-
-    <TextView
-        android:id="@+id/stats_box_self_title"
-        android:layout_width="123dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/stats_box_self_title"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/stats_box"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_today_title" />
-
-    <TextView
-        android:id="@+id/stats_box_self_value"
-        android:layout_width="72dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/stats_box_self_value"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/stats_box_self_title"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_today_value" />
-
-    <TextView
-        android:id="@+id/stats_box_types_title"
-        android:layout_width="123dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/stats_box_type_title"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/stats_box"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_self_title" />
-
-    <TextView
-        android:id="@+id/stats_box_types_value"
-        android:layout_width="72dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/stats_box_type_value"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/stats_box_types_title"
-        app:layout_constraintTop_toBottomOf="@+id/stats_box_self_value" />
-
-    <View
-        android:id="@+id/divider"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_recent_title" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <ListView
-        android:id="@+id/home_recent_informations"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:headerDividersEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ListView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sync_data_btn"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_corners"
+                android:text="@string/home_sync_data_btn"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/stats_box"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/home_stats_box"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sync_data_btn" />
+
+            <TextView
+                android:id="@+id/stats_box_title"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/home_stats_box_title"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/stats_box"
+                app:layout_constraintTop_toTopOf="@+id/stats_box" />
+
+            <TextView
+                android:id="@+id/home_recent_title"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/home_recent_title"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box" />
+
+            <TextView
+                android:id="@+id/stats_box_today_title"
+                android:layout_width="123dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/stats_box_today_title"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/stats_box"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
+
+            <TextView
+                android:id="@+id/stats_box_today_value"
+                android:layout_width="72dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/stats_box_today_value"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/stats_box_today_title"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
+
+            <TextView
+                android:id="@+id/stats_box_self_title"
+                android:layout_width="123dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/stats_box_self_title"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/stats_box"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_today_title" />
+
+            <TextView
+                android:id="@+id/stats_box_self_value"
+                android:layout_width="72dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/stats_box_self_value"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/stats_box_self_title"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_today_value" />
+
+            <TextView
+                android:id="@+id/stats_box_types_title"
+                android:layout_width="123dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/stats_box_type_title"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/stats_box"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_self_title" />
+
+            <TextView
+                android:id="@+id/stats_box_types_value"
+                android:layout_width="72dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/stats_box_type_value"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/stats_box_types_title"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_self_value" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_recent_title" />
+
+            <ListView
+                android:id="@+id/home_recent_informations"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:headerDividersEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider">
+
+            </ListView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
