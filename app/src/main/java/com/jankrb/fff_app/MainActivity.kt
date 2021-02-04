@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         gd.cornerRadius = 0f // Border Radius of toolbar
         supportActionBar?.setBackgroundDrawable(gd) // Apply GradientDrawable
 
-        supportActionBar?.show()
+        supportActionBar?.show() // Replace old toolbar
 
 
     }
