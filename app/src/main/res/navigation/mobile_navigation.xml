@@ -15,7 +15,7 @@
         android:id="@+id/navigation_scan"
         android:name="com.jankrb.fff_app.ui.scan.ScanFragment"
         android:label="@string/title_scan"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/navigation_info"
@@ -24,8 +24,8 @@
         tools:layout="@layout/fragment_info" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.jankrb.fff_app.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_settings"
+        android:name="com.jankrb.fff_app.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
