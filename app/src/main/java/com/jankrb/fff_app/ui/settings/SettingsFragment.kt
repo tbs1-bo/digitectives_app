@@ -27,6 +27,13 @@ class SettingsFragment : Fragment() {
         var settingsTitle: TextView = root.findViewById(R.id.settings_title)
         settingsTitle?.typeface = FontCache.getTypeface("Montserrat-Medium.ttf", (context as MainActivity))
 
+        var autoSyncTitle: TextView = root.findViewById(R.id.settings_autosync_title)
+        autoSyncTitle?.typeface = FontCache.getTypeface("Montserrat-Medium.ttf", (context as MainActivity))
+
+        var autoSyncSubTitle: TextView = root.findViewById(R.id.settings_autosync_subtitle)
+        autoSyncSubTitle?.typeface =FontCache.getTypeface("Montserrat-Medium.ttf", (context as MainActivity))
+
+
         return root
     }
 }
