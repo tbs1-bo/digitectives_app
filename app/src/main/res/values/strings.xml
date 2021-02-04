@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">FfF-App</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_info">Info</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_scan">Scan</string>
+
+    <string name="home_sync_data_btn">Sync Data with Server</string>
+    <string name="home_stats_box_title">Statistics</string>
+    <string name="stats_box_today_title">Today scanned</string>
+    <string name="stats_box_self_title">Scanned in total</string>
+    <string name="stats_box_type_title">Types registred</string>
+    <string name="stats_box_today_value">15</string>
+    <string name="stats_box_self_value">533</string>
+    <string name="stats_box_type_value">27</string>
+
+    <string name="home_recent_title">Recent Information</string>
+
+    <string name="info_about_title">Information about Fit for Future</string>
+    <string name="info_about_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At</string>
+
+    <string name="info_howto_title">How to use the scanner?</string>
+    <string name="info_howto_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At</string>
+
+    <string name="info_sync_title">Synchronizing the data</string>
+    <string name="info_sync_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At</string>
 </resources>
