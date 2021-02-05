@@ -1,15 +1,19 @@
 package com.jankrb.fff_app.ui.scan
 
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.util.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
@@ -21,10 +25,16 @@ import com.jankrb.fff_app.ui.scanned.ScannedFragment
 
 class ScanFragment : Fragment() {
 
+    // Barcode Scanner
     private lateinit var scansViewModel: ScanViewModel
     private val requestCodeCameraPermission = 1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
+
+    // GPS
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val requestCodeGPSPermission = 99
+
     private lateinit var root: View
 
     override fun onCreateView(
@@ -45,6 +55,17 @@ class ScanFragment : Fragment() {
         } else {
             setupControls()
         }
+
+        // Check if app has gps access, if not request permissions, else setup locationmanager
+        if (ActivityCompat.checkSelfPermission(
+                context as MainActivity,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+            askForGPSPermission() // Request permission, if has no permissions
+        }
+
+        // Create GPS Location Manager
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context as MainActivity)
 
         return root
     }
@@ -76,7 +97,7 @@ class ScanFragment : Fragment() {
     }
 
     /**
-     * Callback function for func askForCameraPermission
+     * Callback function for func askForCameraPermission & askForGPSPermission
      */
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -91,7 +112,22 @@ class ScanFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
             }
+        } else if (requestCode == requestCodeGPSPermission && grantResults.isNotEmpty()) { // Callback is not empty
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED)  {
+                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
+            }
         }
+    }
+
+    /**
+     * Request gps permission
+     */
+    private fun askForGPSPermission() {
+        ActivityCompat.requestPermissions(
+            context as MainActivity,
+            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            requestCodeGPSPermission
+        )
     }
 
     /**
@@ -139,6 +175,21 @@ class ScanFragment : Fragment() {
                 if (code != null) { // Check if code is not null
                     Log.i("SCAN", code.displayValue) // Debug message for Logcat
                     cameraSource.stop() // Stop Camera
+
+                    // GPS
+                    if (ActivityCompat.checkSelfPermission(
+                            context as MainActivity,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED) {
+                        askForGPSPermission() // Request permission, if has no permissions
+                    }
+
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener { location->
+                            if (location != null) {
+                                // Work with location from here
+                            }
+                        }
 
                     // TODO: Show Scanned Fragment
                 }
