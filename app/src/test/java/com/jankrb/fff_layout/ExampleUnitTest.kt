@@ -1,4 +1,4 @@
-package com.jankrb.fff_app
+package com.jankrb.fff_layout
 
 import org.junit.Test
 
