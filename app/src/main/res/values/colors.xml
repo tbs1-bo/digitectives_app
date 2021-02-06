@@ -8,6 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="colorPrimary">#FFBB86FC</color>
+    <color name="colorPrimaryDark">#FFBB86FC</color>
+    <color name="colorAccent">#FFBB86FC</color>
+
     <color name="gradient_start">#37A3EC</color>
     <color name="gradient_stop">#2B84BE</color>
 
