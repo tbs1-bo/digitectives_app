@@ -1,4 +1,4 @@
-package com.jankrb.fff_app.ui.scan
+package com.jankrb.fff_layout.ui
 
 import android.content.pm.PackageManager
 import android.location.Location
@@ -6,27 +6,28 @@ import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.view.*
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.util.isNotEmpty
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.jankrb.fff_app.MainActivity
-import com.jankrb.fff_app.R
-import com.jankrb.fff_app.ui.scanned.ScannedFragment
+import com.jankrb.fff_layout.MainActivity
+import com.jankrb.fff_layout.R
 
+class CameraFragment : Fragment() {
 
-class ScanFragment : Fragment() {
+    companion object {
+        fun newInstance() = CameraFragment()
+    }
 
     // Barcode Scanner
-    private lateinit var scansViewModel: ScanViewModel
     private val requestCodeCameraPermission = 1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
@@ -37,20 +38,15 @@ class ScanFragment : Fragment() {
 
     private lateinit var root: View
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        scansViewModel =
-                ViewModelProvider(this).get(ScanViewModel::class.java)
-        root = inflater.inflate(R.layout.fragment_scan, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        root = inflater.inflate(R.layout.camera_fragment, container, false)
 
         // Check if app has camera access, if not request permissions, else setup camera
         if (ActivityCompat.checkSelfPermission(
-                (activity as MainActivity),
-                android.Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED) {
+                        (activity as MainActivity),
+                        android.Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED) {
             askForCameraPermission()
         } else {
             setupControls()
@@ -58,9 +54,9 @@ class ScanFragment : Fragment() {
 
         // Check if app has gps access, if not request permissions, else setup locationmanager
         if (ActivityCompat.checkSelfPermission(
-                context as MainActivity,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) {
+                        context as MainActivity,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED) {
             askForGPSPermission() // Request permission, if has no permissions
         }
 
@@ -76,11 +72,11 @@ class ScanFragment : Fragment() {
     private fun setupControls() {
         detector = BarcodeDetector.Builder((activity as MainActivity)).build() // Build Barcode Detector
         cameraSource = CameraSource.Builder((activity as MainActivity), detector) // Build camera source
-            .setAutoFocusEnabled(true)
-            .build()
+                .setAutoFocusEnabled(true)
+                .build()
 
         // Apply camera source to surface
-        val cameraSurfaceView = root.findViewById<SurfaceView>(R.id.surfaceView)
+        val cameraSurfaceView = root.findViewById<SurfaceView>(R.id.cameraSurfaceView)
         cameraSurfaceView.holder.addCallback(surgaceCallback) // Apply Create/Change/Delete Callback
         detector.setProcessor(processor) // Apply detector processor to detector
     }
@@ -90,9 +86,9 @@ class ScanFragment : Fragment() {
      */
     private fun askForCameraPermission() {
         ActivityCompat.requestPermissions(
-            (activity as MainActivity),
-            arrayOf(android.Manifest.permission.CAMERA),
-            requestCodeCameraPermission
+                (activity as MainActivity),
+                arrayOf(android.Manifest.permission.CAMERA),
+                requestCodeCameraPermission
         )
     }
 
@@ -100,9 +96,9 @@ class ScanFragment : Fragment() {
      * Callback function for func askForCameraPermission & askForGPSPermission
      */
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -124,9 +120,9 @@ class ScanFragment : Fragment() {
      */
     private fun askForGPSPermission() {
         ActivityCompat.requestPermissions(
-            context as MainActivity,
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-            requestCodeGPSPermission
+                context as MainActivity,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                requestCodeGPSPermission
         )
     }
 
@@ -145,9 +141,9 @@ class ScanFragment : Fragment() {
         override fun surfaceCreated(holder: SurfaceHolder) {
             try {
                 if (ActivityCompat.checkSelfPermission(
-                        (activity as MainActivity),
-                        android.Manifest.permission.CAMERA
-                    ) != PackageManager.PERMISSION_GRANTED) {
+                                (activity as MainActivity),
+                                android.Manifest.permission.CAMERA
+                        ) != PackageManager.PERMISSION_GRANTED) {
                     askForCameraPermission() // Request permission, if has no permissions
                 }
 
@@ -174,26 +170,33 @@ class ScanFragment : Fragment() {
 
                 if (code != null) { // Check if code is not null
                     Log.i("SCAN", code.displayValue) // Debug message for Logcat
-                    cameraSource.stop() // Stop Camera
 
                     // GPS
                     if (ActivityCompat.checkSelfPermission(
-                            context as MainActivity,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED) {
+                                    context as MainActivity,
+                                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                            ) != PackageManager.PERMISSION_GRANTED) {
                         askForGPSPermission() // Request permission, if has no permissions
                     }
 
+                    var locationGPS: Location
                     fusedLocationClient.lastLocation
-                        .addOnSuccessListener { location->
-                            if (location != null) {
-                                // Work with location from here
+                            .addOnSuccessListener { location->
+                                if (location != null) {
+                                    locationGPS = location
+                                }
                             }
-                        }
 
-                    // TODO: Show Scanned Fragment
+                    showFragment(ScannedFragment())
                 }
             }
+        }
+    }
+
+    private fun showFragment(fragment: Fragment) {
+        (context as MainActivity).supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragment)
+            commit()
         }
     }
 }

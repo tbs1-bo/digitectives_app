@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/ut_rounded_corners"
                 android:text="@string/home_sync_data_btn"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,17 +53,6 @@
                 app:layout_constraintTop_toTopOf="@+id/stats_box" />
 
             <TextView
-                android:id="@+id/home_recent_title"
-                android:layout_width="0dp"
-                android:layout_height="23dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/home_recent_title"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stats_box" />
-
-            <TextView
                 android:id="@+id/stats_box_today_title"
                 android:layout_width="123dp"
                 android:layout_height="20dp"
@@ -73,18 +62,6 @@
                 android:text="@string/stats_box_today_title"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/stats_box"
-                app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
-
-            <TextView
-                android:id="@+id/stats_box_today_value"
-                android:layout_width="72dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginLeft="64dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/stats_box_today_value"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/stats_box_today_title"
                 app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
 
             <TextView
@@ -100,6 +77,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/stats_box_today_title" />
 
             <TextView
+                android:id="@+id/stats_box_today_value"
+                android:layout_width="72dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/stats_box_today_value"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/stats_box_today_title"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_title" />
+
+            <TextView
                 android:id="@+id/stats_box_self_value"
                 android:layout_width="72dp"
                 android:layout_height="20dp"
@@ -110,6 +99,18 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/stats_box_self_title"
                 app:layout_constraintTop_toBottomOf="@+id/stats_box_today_value" />
+
+            <TextView
+                android:id="@+id/stats_box_types_value"
+                android:layout_width="72dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/stats_box_type_value"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/stats_box_types_title"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box_self_value" />
 
             <TextView
                 android:id="@+id/stats_box_types_title"
@@ -124,16 +125,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/stats_box_self_title" />
 
             <TextView
-                android:id="@+id/stats_box_types_value"
-                android:layout_width="72dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginLeft="64dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/stats_box_type_value"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/stats_box_types_title"
-                app:layout_constraintTop_toBottomOf="@+id/stats_box_self_value" />
+                android:id="@+id/home_recent_title"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/home_recent_title"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stats_box" />
 
             <View
                 android:id="@+id/divider"

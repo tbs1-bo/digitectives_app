@@ -1,4 +1,4 @@
-package com.jankrb.fff_app.ui.home
+package com.jankrb.fff_layout.ui
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -13,39 +13,32 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.jankrb.fff_app.MainActivity
-import com.jankrb.fff_app.R
-import com.jankrb.fff_app.Settings
-import com.jankrb.fff_app.utils.FontCache
+import com.jankrb.fff_layout.MainActivity
+import com.jankrb.fff_layout.R
+import com.jankrb.fff_layout.home.HomeNewsListAdapter
+import com.jankrb.fff_layout.objects.PrivateSettings
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
+
     private val createdAts: MutableList<String> = mutableListOf()
     private val titles: MutableList<String> = mutableListOf()
     private val descriptions: MutableList<String> = mutableListOf()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        var root = inflater.inflate(R.layout.home_fragment, container, false)
 
-        // Home Sync Btn
+// Home Sync Btn
         var sync_btn: Button = root.findViewById(R.id.sync_data_btn)
 
         val gd = GradientDrawable(
-                GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(Settings.gradientStart), Color.parseColor(Settings.gradientStop)))
+            GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop)))
         gd.cornerRadius = 50f
         sync_btn?.background = gd
-
-        // Stats Box
-        var statsTV: TextView = root.findViewById(R.id.stats_box_title)
-        statsTV.typeface = FontCache.getTypeface("Montserrat-Medium.ttf", root.context)
 
         // Recent Information ScrollView
         // Test Element
@@ -68,10 +61,11 @@ class HomeFragment : Fragment() {
         createdAts.reverse()
 
         // Load ScrollView
-        val infoAdapter = HomeListAdapter((activity as MainActivity), titles.toTypedArray(), descriptions.toTypedArray(), createdAts.toTypedArray())
+        val infoAdapter = HomeNewsListAdapter((activity as MainActivity), titles.toTypedArray(), descriptions.toTypedArray(), createdAts.toTypedArray())
         val listView = root.findViewById<ListView>(R.id.home_recent_informations)
         listView.adapter = infoAdapter
 
         return root
     }
+
 }

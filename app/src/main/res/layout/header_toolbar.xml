@@ -6,12 +6,13 @@
     >
 
     <TextView
+        android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Title"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/app_name"
         android:textColor="#ffffff"
-        android:id="@+id/header_text"
         android:textSize="20sp" />
 
 </LinearLayout>
