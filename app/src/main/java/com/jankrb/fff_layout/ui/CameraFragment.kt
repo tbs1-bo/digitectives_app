@@ -1,5 +1,8 @@
 package com.jankrb.fff_layout.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -10,8 +13,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.util.isNotEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.vision.CameraSource
@@ -21,43 +22,45 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
 
+
 class CameraFragment : Fragment() {
 
     companion object {
         fun newInstance() = CameraFragment()
     }
 
-    // Barcode Scanner
-    private val requestCodeCameraPermission = 1001
+    private val requestCodePermission = 1001
+    val permissions = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    )
+
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
-
-    // GPS
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val requestCodeGPSPermission = 99
 
     private lateinit var root: View
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         root = inflater.inflate(R.layout.camera_fragment, container, false)
 
-        // Check if app has camera access, if not request permissions, else setup camera
-        if (ActivityCompat.checkSelfPermission(
-                        (activity as MainActivity),
-                        android.Manifest.permission.CAMERA
-                ) != PackageManager.PERMISSION_GRANTED) {
-            askForCameraPermission()
-        } else {
-            setupControls()
-        }
-
         // Check if app has gps access, if not request permissions, else setup locationmanager
-        if (ActivityCompat.checkSelfPermission(
-                        context as MainActivity,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED) {
-            askForGPSPermission() // Request permission, if has no permissions
+        if (
+            (ActivityCompat.checkSelfPermission(
+                context as MainActivity,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED) &&
+            (ActivityCompat.checkSelfPermission(
+                context as MainActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED)
+        ) {
+            setupControls()
+        } else {
+            askForPermission()
         }
 
         // Create GPS Location Manager
@@ -82,48 +85,53 @@ class CameraFragment : Fragment() {
     }
 
     /**
-     * Request camera permission for scanner
+     * Request permissions
      */
-    private fun askForCameraPermission() {
-        ActivityCompat.requestPermissions(
-                (activity as MainActivity),
-                arrayOf(android.Manifest.permission.CAMERA),
-                requestCodeCameraPermission
-        )
+    private fun askForPermission() {
+        if (!hasPermissions(context, permissions)) {
+            ActivityCompat.requestPermissions(context as MainActivity, permissions, requestCodePermission);
+        }
+    }
+
+    /**
+     * Check if App has permissions
+     */
+    private fun hasPermissions(context: Context?, permissions: Array<String>): Boolean {
+        if (context != null) {
+            for (permission in permissions) {
+                if (ActivityCompat.checkSelfPermission(
+                        context,
+                        permission
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 
     /**
      * Callback function for func askForCameraPermission & askForGPSPermission
      */
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == requestCodeCameraPermission && grantResults.isNotEmpty()) { // Callback is not empty
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) { // Callback permission is granted
-                setupControls()
-            } else {
-                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
+        if (requestCode == requestCodePermission && grantResults.isNotEmpty()) { // Callback is not empty
+            for (result in grantResults) {
+                if (result == PackageManager.PERMISSION_DENIED) {
+                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
+                    return
+                }
             }
-        } else if (requestCode == requestCodeGPSPermission && grantResults.isNotEmpty()) { // Callback is not empty
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED)  {
-                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
-            }
-        }
-    }
 
-    /**
-     * Request gps permission
-     */
-    private fun askForGPSPermission() {
-        ActivityCompat.requestPermissions(
-                context as MainActivity,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                requestCodeGPSPermission
-        )
+            showFragment(CameraFragment())
+        }
     }
 
     /**
@@ -138,16 +146,14 @@ class CameraFragment : Fragment() {
             cameraSource.stop()
         }
 
+        @SuppressLint("MissingPermission")
         override fun surfaceCreated(holder: SurfaceHolder) {
             try {
-                if (ActivityCompat.checkSelfPermission(
-                                (activity as MainActivity),
-                                android.Manifest.permission.CAMERA
-                        ) != PackageManager.PERMISSION_GRANTED) {
-                    askForCameraPermission() // Request permission, if has no permissions
+                if (!hasPermissions(context, permissions)) {
+                    askForPermission()
+                } else {
+                    cameraSource.start(holder) // Start camera
                 }
-
-                cameraSource.start(holder) // Start camera
             } catch (exception: Exception) {
                 Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
             }
@@ -173,10 +179,10 @@ class CameraFragment : Fragment() {
 
                     // GPS
                     if (ActivityCompat.checkSelfPermission(
-                                    context as MainActivity,
-                                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                            ) != PackageManager.PERMISSION_GRANTED) {
-                        askForGPSPermission() // Request permission, if has no permissions
+                            context as MainActivity,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED) {
+                        askForPermission() // Ask for permission if no perms
                     }
 
                     var locationGPS: Location
