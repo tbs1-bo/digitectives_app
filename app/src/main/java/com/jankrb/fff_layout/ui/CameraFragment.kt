@@ -1,29 +1,25 @@
 package com.jankrb.fff_layout.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.graphics.PointF
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseArray
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.util.isNotEmpty
 import androidx.fragment.app.Fragment
+import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.vision.CameraSource
-import com.google.android.gms.vision.Detector
-import com.google.android.gms.vision.barcode.Barcode
-import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
 
 
-class CameraFragment : Fragment() {
+class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
 
     companion object {
         fun newInstance() = CameraFragment()
@@ -34,9 +30,7 @@ class CameraFragment : Fragment() {
         Manifest.permission.CAMERA,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
-
-    private lateinit var cameraSource: CameraSource
-    private lateinit var detector: BarcodeDetector
+    private lateinit var qrCodeReaderView: QRCodeReaderView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var root: View
@@ -73,15 +67,23 @@ class CameraFragment : Fragment() {
      * Setup camera and detector, apply to SurfaceView
      */
     private fun setupControls() {
-        detector = BarcodeDetector.Builder((activity as MainActivity)).build() // Build Barcode Detector
-        cameraSource = CameraSource.Builder((activity as MainActivity), detector) // Build camera source
-                .setAutoFocusEnabled(true)
-                .build()
+        qrCodeReaderView = root.findViewById(R.id.cameraSurfaceView)
+        qrCodeReaderView.setOnQRCodeReadListener(this);
 
-        // Apply camera source to surface
-        val cameraSurfaceView = root.findViewById<SurfaceView>(R.id.cameraSurfaceView)
-        cameraSurfaceView.holder.addCallback(surgaceCallback) // Apply Create/Change/Delete Callback
-        detector.setProcessor(processor) // Apply detector processor to detector
+        // Use this function to enable/disable decoding
+        qrCodeReaderView.setQRDecodingEnabled(true);
+
+        // Use this function to change the autofocus interval (default is 5 secs)
+        qrCodeReaderView.setAutofocusInterval(2000L);
+
+        // Use this function to enable/disable Torch
+        qrCodeReaderView.setTorchEnabled(true);
+
+        // Use this function to set front camera preview
+        qrCodeReaderView.setFrontCamera();
+
+        // Use this function to set back camera preview
+        qrCodeReaderView.setBackCamera();
     }
 
     /**
@@ -89,7 +91,11 @@ class CameraFragment : Fragment() {
      */
     private fun askForPermission() {
         if (!hasPermissions(context, permissions)) {
-            ActivityCompat.requestPermissions(context as MainActivity, permissions, requestCodePermission);
+            ActivityCompat.requestPermissions(
+                context as MainActivity,
+                permissions,
+                requestCodePermission
+            );
         }
     }
 
@@ -134,69 +140,33 @@ class CameraFragment : Fragment() {
         }
     }
 
-    /**
-     * Surface Callback for Changing, Deleting and Creating the Surface
-     */
-    private val surgaceCallback = object : SurfaceHolder.Callback {
-        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-
-        }
-
-        override fun surfaceDestroyed(holder: SurfaceHolder) {
-            cameraSource.stop()
-        }
-
-        @SuppressLint("MissingPermission")
-        override fun surfaceCreated(holder: SurfaceHolder) {
-            try {
-                if (!hasPermissions(context, permissions)) {
-                    askForPermission()
-                } else {
-                    cameraSource.start(holder) // Start camera
-                }
-            } catch (exception: Exception) {
-                Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
-            }
+    private fun showFragment(fragment: Fragment) {
+        (context as MainActivity).supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragment)
+            commit()
         }
     }
 
-    /**
-     * Barcode Detector Processor
-     */
-    private val processor = object : Detector.Processor<Barcode> {
-        override fun release() {} // Processor released from detector
+    override fun onQRCodeRead(text: String?, points: Array<PointF?>?) {
+        Log.i("SCANNED", "Found: $text")
 
-        /**
-         * Func to receive processed camera data (e.g. Barcode details or null)
-         */
-        override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
-            if (detections != null && detections.detectedItems.isNotEmpty()) { // Result is not null
-                val qrCodes : SparseArray<Barcode> = detections.detectedItems // Get all detected codes
-                val code = qrCodes.valueAt(0) // Get single/first detected code
+        // GPS
+        if (ActivityCompat.checkSelfPermission(
+                context as MainActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+            askForPermission() // Request permission, if has no permissions
+        }
 
-                if (code != null) { // Check if code is not null
-                    Log.i("SCAN", code.displayValue) // Debug message for Logcat
-
-                    // GPS
-                    if (ActivityCompat.checkSelfPermission(
-                            context as MainActivity,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED) {
-                        askForPermission() // Ask for permission if no perms
-                    }
-
-                    var locationGPS: Location
-                    fusedLocationClient.lastLocation
-                            .addOnSuccessListener { location->
-                                if (location != null) {
-                                    locationGPS = location
-                                }
-                            }
-
-                    showFragment(ScannedFragment())
+        var locationGPS: Location
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location->
+                if (location != null) {
+                    locationGPS = location
                 }
             }
-        }
+
+        showFragment(ScannedFragment())
     }
 
     override fun onResume() {
