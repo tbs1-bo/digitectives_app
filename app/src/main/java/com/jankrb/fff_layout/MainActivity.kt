@@ -3,9 +3,9 @@ package com.jankrb.fff_layout
 import android.app.ActionBar
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jankrb.fff_layout.objects.PrivateSettings
@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home->setCurrentFragment(homeFragment)
-                R.id.camera->setCurrentFragment(cameraFragment)
-                R.id.info->setCurrentFragment(infoFormatError)
-                R.id.settings->setCurrentFragment(settingsFragment)
+                R.id.home -> setCurrentFragment(homeFragment)
+                R.id.camera -> setCurrentFragment(cameraFragment)
+                R.id.info -> setCurrentFragment(infoFormatError)
+                R.id.settings -> setCurrentFragment(settingsFragment)
             }
             true
         }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         // App Background Gradient
         val gd = GradientDrawable(
-            GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop))
+                GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop))
         )
         gd.cornerRadius = 0f // Border Radius of toolbar
         supportActionBar?.setBackgroundDrawable(gd) // Apply GradientDrawable
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
+            replace(R.id.flFragment, fragment)
             commit()
         }
 }
