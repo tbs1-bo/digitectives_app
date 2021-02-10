@@ -199,10 +199,15 @@ class CameraFragment : Fragment() {
         }
     }
 
-    private fun showFragment(fragment: Fragment) {
-        (context as MainActivity).supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
+    override fun onResume() {
+        super.onResume()
+        qrCodeReaderView.startCamera()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onPause() {
+        super.onPause()
+        qrCodeReaderView.stopCamera()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 }
