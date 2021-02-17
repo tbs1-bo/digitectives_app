@@ -1,5 +1,6 @@
 package com.jankrb.fff_layout
 
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -14,6 +15,7 @@ import com.jankrb.fff_layout.ui.*
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
