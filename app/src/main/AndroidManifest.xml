@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jankrb.fff_layout">
 
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -22,7 +23,8 @@
     </application>
 
     <uses-feature android:name="android.hardware.camera2"
-        android:required="false" />
+        android:required="false"
+        tools:ignore="ManifestOrder" />
     <uses-feature android:name="android.location"
         android:required="false" />
 </manifest>
