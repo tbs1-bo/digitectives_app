@@ -1,6 +1,7 @@
 package com.jankrb.fff_layout
 
 import android.app.ActionBar
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -61,4 +62,14 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.flFragment, fragment)
             commit()
         }
+
+    override fun onResume() {
+        super.onResume()
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onPause() {
+        super.onPause()
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+    }
 }
