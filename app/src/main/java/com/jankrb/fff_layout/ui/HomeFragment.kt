@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         var root = inflater.inflate(R.layout.home_fragment, container, false)
 
-// Home Sync Btn
+        // Home Sync Btn
         var sync_btn: Button = root.findViewById(R.id.sync_data_btn)
 
         val gd = GradientDrawable(

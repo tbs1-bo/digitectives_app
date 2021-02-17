@@ -52,9 +52,10 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
-            setupControls()
+            setupControls() // Start camera and gps, if permissions granted
         } else {
-            askForPermission()
+            askForPermission() // Ask for permissions
+            // TODO: Possible error on oppo phones. Oppo phones seems to use another permission api
         }
 
         // Create GPS Location Manager

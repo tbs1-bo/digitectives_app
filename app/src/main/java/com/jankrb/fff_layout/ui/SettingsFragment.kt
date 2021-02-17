@@ -20,10 +20,10 @@ class SettingsFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         var root = inflater.inflate(R.layout.settings_fragment, container, false)
 
-        var languageList = listOf("Deutsch", "English", "Polish", "Spain")
-        var languageSelector: Spinner = root.findViewById(R.id.settings_language_selector)
-        var languageSelectorAdapter: ArrayAdapter<String> = ArrayAdapter((context as MainActivity), R.layout.support_simple_spinner_dropdown_item, languageList)
-        languageSelector.adapter = languageSelectorAdapter
+        var languageList = listOf("Deutsch", "English", "Polish", "Spain") // Create list of available languages
+        var languageSelector: Spinner = root.findViewById(R.id.settings_language_selector) // Get dropdown menu
+        var languageSelectorAdapter: ArrayAdapter<String> = ArrayAdapter((context as MainActivity), R.layout.support_simple_spinner_dropdown_item, languageList) // Create a adapter for dropdown elements
+        languageSelector.adapter = languageSelectorAdapter // Map adapter onto dropdown
 
         return root
     }

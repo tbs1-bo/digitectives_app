@@ -23,6 +23,7 @@ class ScannedFragment : Fragment() {
     ): View {
         var root = inflater.inflate(R.layout.scanned_fragment, container, false)
 
+        // Show scanner after delay of 5s
         Handler().postDelayed({ kotlin.run {
             showFragment(CameraFragment())
         } }, 5000)
@@ -33,8 +34,8 @@ class ScannedFragment : Fragment() {
     private fun showFragment(fragment: Fragment) {
         try {
             (context as MainActivity).supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, fragment)
-                commit()
+                replace(R.id.flFragment, fragment) // Replace current fragment
+                commit() // Apply changes
             }
         } catch (ignored: Exception) {} // Probably crashing when changing fragment
     }

@@ -65,6 +65,9 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
+    /*
+    oneResume & onPause events will set orientation to Portrait mode
+     */
     override fun onResume() {
         super.onResume()
         this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

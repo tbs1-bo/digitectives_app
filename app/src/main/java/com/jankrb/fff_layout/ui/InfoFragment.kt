@@ -17,7 +17,7 @@ class InfoFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         var root = inflater.inflate(R.layout.info_fragment, container, false)
 
-
+        // No code needed yet
 
         return root
     }
