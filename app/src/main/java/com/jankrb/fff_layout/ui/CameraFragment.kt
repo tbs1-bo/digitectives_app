@@ -8,6 +8,8 @@ import android.graphics.PointF
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.INFO
+import android.util.Log.VERBOSE
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -17,6 +19,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
+
+import com.jankrb.fff_layout.dbclasses.dbqueries
 
 
 class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
@@ -69,22 +73,22 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
      */
     private fun setupControls() {
         qrCodeReaderView = root.findViewById(R.id.cameraSurfaceView)
-        qrCodeReaderView.setOnQRCodeReadListener(this);
+        qrCodeReaderView.setOnQRCodeReadListener(this)
 
         // Use this function to enable/disable decoding
-        qrCodeReaderView.setQRDecodingEnabled(true);
+        qrCodeReaderView.setQRDecodingEnabled(true)
 
         // Use this function to change the autofocus interval (default is 5 secs)
-        qrCodeReaderView.setAutofocusInterval(2000L);
+        qrCodeReaderView.setAutofocusInterval(2000L)
 
         // Use this function to enable/disable Torch
-        qrCodeReaderView.setTorchEnabled(true);
+        qrCodeReaderView.setTorchEnabled(true)
 
         // Use this function to set front camera preview
-        qrCodeReaderView.setFrontCamera();
+        qrCodeReaderView.setFrontCamera()
 
         // Use this function to set back camera preview
-        qrCodeReaderView.setBackCamera();
+        qrCodeReaderView.setBackCamera()
     }
 
     /**
@@ -96,7 +100,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                 context as MainActivity,
                 permissions,
                 requestCodePermission
-            );
+            )
         }
     }
 
@@ -160,15 +164,24 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         }
 
         var locationGPS: Location
+
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location->
                 if (location != null) {
                     locationGPS = location
+                    //var latitude = locationGPS.latitude.toString()
+                    var longitude = locationGPS.longitude.toString()
+                    //
+                    //only for debug, prints to console
+                    //Log.d("INFO","Breitengrad:" + latitude)
+                    dbqueries.addToDatabase(longitude)
                 }
             }
 
         showFragment(ScannedFragment())
     }
+
+
 
     override fun onResume() {
         super.onResume()

@@ -145,7 +145,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_recent_title" />
 
-            <ListView
+    <!--        <ListView
                 android:id="@+id/home_recent_informations"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -158,7 +158,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider">
 
-            </ListView>
+            </ListView>-->
+            <TextView
+                android:id="@+id/home_recent_informations"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:headerDividersEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"/>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -6,12 +6,19 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jankrb.fff_layout.dbclasses.ScanDao
+import com.jankrb.fff_layout.dbclasses.dbvar
 import com.jankrb.fff_layout.objects.PrivateSettings
 import com.jankrb.fff_layout.ui.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,4 +84,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
+
+
+
 }
