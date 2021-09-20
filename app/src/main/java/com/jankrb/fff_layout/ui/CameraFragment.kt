@@ -173,7 +173,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                     var longitude = locationGPS.longitude.toString()
                     //
                     //only for debug, prints to console
-                    //Log.d("INFO","Breitengrad:" + latitude)
+                    Log.i("INFO","Breitengrad:" + longitude)
                     dbqueries.addToDatabase(longitude)
                 }
             }
