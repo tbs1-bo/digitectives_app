@@ -10,7 +10,8 @@ data class Scan (
     @PrimaryKey(autoGenerate = true) val scan_id: Int = 0,
     val latitude: String?,
     val longitude: String?,
-    val altitude: String? // Höhe
+    val altitude: String?, // Höhe
+    val timestamp: String
 )
 
 //Datenbankzugriffe definieren, DAO = Data access object

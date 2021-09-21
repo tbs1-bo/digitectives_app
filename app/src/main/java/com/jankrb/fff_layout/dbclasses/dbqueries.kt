@@ -1,18 +1,18 @@
 package com.jankrb.fff_layout.dbclasses
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
+import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object dbqueries {
     //Koordinaten in DB Eintragen
-    fun addToDatabase(latitudeValue: String, longitudeValue: String, altitudeValue: String){
+    fun addToDatabase(latitudeValue: String, longitudeValue: String, altitudeValue: String, timestampValue: String) {
         //add location to sqlite db
         val scanDao : ScanDao = dbvar.scanDao()
         CoroutineScope(Dispatchers.Main).launch{
-            scanDao.insertAll(Scan(latitude = latitudeValue, longitude=longitudeValue, altitude = altitudeValue))
+            scanDao.insertAll(Scan(latitude = latitudeValue, longitude=longitudeValue, altitude = altitudeValue, timestamp = timestampValue))
             //Log.d("INFO","Aufruf erfolgreich")
         }
 

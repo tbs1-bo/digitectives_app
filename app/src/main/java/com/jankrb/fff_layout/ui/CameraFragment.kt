@@ -21,6 +21,7 @@ import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
 
 import com.jankrb.fff_layout.dbclasses.dbqueries
+import java.time.format.DateTimeFormatter
 
 
 class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
@@ -175,7 +176,13 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                     //
                     //only for debug, prints to console
                     Log.i("SCANNED", "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude")
-                    dbqueries.addToDatabase(latitude, longitude, altitude)
+
+                    val timestamp = java.time.format.DateTimeFormatter
+                        .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
+                        .withZone(java.time.ZoneOffset.UTC)
+                        .format(java.time.Instant.now())
+                        .toString()
+                    dbqueries.addToDatabase(latitude, longitude, altitude, timestamp)
                 }
             }
 
