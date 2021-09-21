@@ -9,7 +9,8 @@ import androidx.room.*
 data class Scan (
     @PrimaryKey(autoGenerate = true) val scan_id: Int = 0,
     val latitude: String?,
-    val longitude: String?
+    val longitude: String?,
+    val altitude: String? // Höhe
 )
 
 //Datenbankzugriffe definieren, DAO = Data access object

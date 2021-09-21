@@ -171,10 +171,11 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                     locationGPS = location
                     var latitude = locationGPS.latitude.toString()
                     var longitude = locationGPS.longitude.toString()
+                    var altitude = locationGPS.altitude.toString()
                     //
                     //only for debug, prints to console
-                    Log.i("SCANNED","Breitengrad: " + latitude + " Breitengrad: " + longitude)
-                    dbqueries.addToDatabase(latitude, longitude)
+                    Log.i("SCANNED", "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude")
+                    dbqueries.addToDatabase(latitude, longitude, altitude)
                 }
             }
 

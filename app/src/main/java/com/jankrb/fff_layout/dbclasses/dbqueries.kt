@@ -8,11 +8,11 @@ import kotlinx.coroutines.launch
 
 object dbqueries {
     //Koordinaten in DB Eintragen
-    fun addToDatabase(latitudeValue: String, longitudeValue: String){
+    fun addToDatabase(latitudeValue: String, longitudeValue: String, altitudeValue: String){
         //add location to sqlite db
         val scanDao : ScanDao = dbvar.scanDao()
         CoroutineScope(Dispatchers.Main).launch{
-            scanDao.insertAll(Scan(latitude = latitudeValue, longitude=longitudeValue))
+            scanDao.insertAll(Scan(latitude = latitudeValue, longitude=longitudeValue, altitude = altitudeValue))
             //Log.d("INFO","Aufruf erfolgreich")
         }
 
