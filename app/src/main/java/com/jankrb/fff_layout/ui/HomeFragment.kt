@@ -63,8 +63,7 @@ class HomeFragment : Fragment() {
         createdAts.add("Created At 3")
         createdAts.add("Created At 4")*/
 
-        sync_btn?.setOnClickListener {
-
+        sync_btn.setOnClickListener {
             val scanDao: ScanDao = dbvar.scanDao()
 
             CoroutineScope(Dispatchers.Main).launch {
