@@ -11,7 +11,8 @@ data class Scan (
     val latitude: String?,
     val longitude: String?,
     val altitude: String?, // Höhe
-    val timestamp: String
+    val timestamp: String?,
+    @ColumnInfo(defaultValue = "0") val synced: Int
 )
 
 //Datenbankzugriffe definieren, DAO = Data access object

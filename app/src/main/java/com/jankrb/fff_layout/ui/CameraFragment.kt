@@ -182,7 +182,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                         .withZone(java.time.ZoneOffset.UTC)
                         .format(java.time.Instant.now())
                         .toString()
-                    dbqueries.addToDatabase(latitude, longitude, altitude, timestamp)
+                    dbqueries.addToDatabase(latitude, longitude, altitude, timestamp, 0)
                 }
             }
 
