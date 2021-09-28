@@ -8,9 +8,10 @@ import androidx.room.*
 @Entity
 data class Scan (
     @PrimaryKey(autoGenerate = true) val scan_id: Int = 0,
+    val insectId: String?,
     val latitude: String?,
     val longitude: String?,
-    val altitude: String?, // Höhe
+    val altitude: String?,
     val timestamp: String?,
     @ColumnInfo(defaultValue = "0") val synced: Int
 )

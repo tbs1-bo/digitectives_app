@@ -182,7 +182,9 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                         .withZone(java.time.ZoneOffset.UTC)
                         .format(java.time.Instant.now())
                         .toString()
-                    dbqueries.addToDatabase(latitude, longitude, altitude, timestamp, 0)
+                    if (text != null) {
+                        dbqueries.addToDatabase(text, latitude, longitude, altitude, timestamp, 0)
+                    }
                 }
             }
 
@@ -194,7 +196,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
     override fun onResume() {
         super.onResume()
         qrCodeReaderView.startCamera()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onPause() {
