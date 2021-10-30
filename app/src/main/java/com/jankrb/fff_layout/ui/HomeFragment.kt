@@ -1,5 +1,6 @@
 package com.jankrb.fff_layout.ui
 
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
     private val createdAts: MutableList<String> = mutableListOf()
     private val titles: MutableList<String> = mutableListOf()
     private val descriptions: MutableList<String> = mutableListOf()
+    private lateinit var scanView: TextView //um auf Objekt aus anderen Methoden zugreifen zu können
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -41,7 +43,7 @@ class HomeFragment : Fragment() {
         // Home Sync Btn
         var sync_btn: Button = root.findViewById(R.id.sync_data_btn)
 
-        var scanView: TextView = root.findViewById(R.id.home_recent_informations)
+        scanView = root.findViewById(R.id.home_recent_informations)
 
         val gd = GradientDrawable(
             GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop)))
@@ -64,14 +66,12 @@ class HomeFragment : Fragment() {
         createdAts.add("Created At 4")*/
 
         sync_btn.setOnClickListener {
-            val scanDao: ScanDao = dbvar.scanDao()
-
-            CoroutineScope(Dispatchers.Main).launch {
-                scanView.text = scanDao.getAll().toString()
-            }
+//            val scanDao: ScanDao = dbvar.scanDao()
+//
+//            CoroutineScope(Dispatchers.Main).launch {
+//                scanView.text = scanDao.getAll().toString()
+//            }
         }
-
-
 
         // Reverse that latest is up
 /*        titles.reverse()
@@ -86,5 +86,14 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        val scanDao: ScanDao = dbvar.scanDao()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            scanView.text = scanDao.getAll().toString()
+        }
+
+    }
 
 }
