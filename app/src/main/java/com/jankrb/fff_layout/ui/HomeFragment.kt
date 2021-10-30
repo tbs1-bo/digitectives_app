@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ import com.jankrb.fff_layout.objects.PrivateSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.*
+import java.io.IOException
 
 class HomeFragment : Fragment() {
 
@@ -35,6 +38,7 @@ class HomeFragment : Fragment() {
     private val titles: MutableList<String> = mutableListOf()
     private val descriptions: MutableList<String> = mutableListOf()
     private lateinit var scanView: TextView //um auf Objekt aus anderen Methoden zugreifen zu können
+    private val client = OkHttpClient()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -66,11 +70,40 @@ class HomeFragment : Fragment() {
         createdAts.add("Created At 4")*/
 
         sync_btn.setOnClickListener {
-//            val scanDao: ScanDao = dbvar.scanDao()
-//
-//            CoroutineScope(Dispatchers.Main).launch {
-//                scanView.text = scanDao.getAll().toString()
-//            }
+            val formBody =FormBody.Builder()
+                .add("insect_id", "9")
+                .add("user_id", "9")
+                .add("device_id", "9")
+                .add("latitude", "299")
+                .add("longitude", "300")
+                .add("altitude", "119")
+                .add("log_date", "2021-01-01T12:30:03")
+                .build()
+
+            val request = Request.Builder()
+                .url("http:/85.235.65.8/insert_post.php")
+                .post(formBody)
+                .build()
+
+            client.newCall(request).enqueue(
+                object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        e.printStackTrace()
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        response.use {
+                            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                            for ((name, value) in response.headers) {
+                               Log.i("response","$name: $value")
+                            }
+
+                            println(response.body!!.string())
+                        }
+                    }
+                },
+            )
         }
 
         // Reverse that latest is up
