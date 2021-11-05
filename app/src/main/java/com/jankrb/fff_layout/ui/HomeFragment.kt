@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     private val titles: MutableList<String> = mutableListOf()
     private val descriptions: MutableList<String> = mutableListOf()
     private lateinit var scanView: TextView //um auf Objekt aus anderen Methoden zugreifen zu können
-    //private val client = OkHttpClient()
+    private lateinit var totalScannedView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -40,11 +40,12 @@ class HomeFragment : Fragment() {
         var sync_btn: Button = root.findViewById(R.id.sync_data_btn)
 
         scanView = root.findViewById(R.id.home_recent_informations)
+        totalScannedView = root.findViewById(R.id.stats_box_self_value)
 
         val gd = GradientDrawable(
             GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop)))
         gd.cornerRadius = 50f
-        sync_btn?.background = gd
+        sync_btn.background = gd
 
         // Recent Information ScrollView
         // Test Element
@@ -62,25 +63,16 @@ class HomeFragment : Fragment() {
         createdAts.add("Created At 4")*/
 
         sync_btn.setOnClickListener {
-            //sendToOnlineDatabase("1","2","3","4","2021-01-01T12:30:03")
-
             val scanDao: ScanDao = dbvar.scanDao()
-            var testliste: List<Scan>
-            CoroutineScope(Dispatchers.Main).launch {
-                //scanView.text = scanDao.getAll().toString()
-                testliste = scanDao.getAll()
-                scanView.text = testliste.toString()
-            }
+            var unsentData: List<Scan>
 
             CoroutineScope(Dispatchers.Main).launch {
-                //scanView.text = scanDao.getAll().toString()
-                testliste = scanDao.getAll()
-                for (element in testliste) {
-                    var latitude = element.latitude
-                    var timestamp = element.timestamp
-                    Log.i("SCANNED", "Timestamp: $timestamp / latitude: $latitude")
+                unsentData = scanDao.getUnsynced()
+                for (element in unsentData) {
                     sendToOnlineDatabase(element.insectId,element.latitude,element.longitude,element.altitude,element.timestamp)
+                    scanDao.setSynced(element.scan_id, 1)
                 }
+                updateDataShown()
             }
         }
 
@@ -99,12 +91,18 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        updateDataShown()
+
+        }
+
+    fun updateDataShown() {
         val scanDao: ScanDao = dbvar.scanDao()
-        var testliste: List<Scan>
         CoroutineScope(Dispatchers.Main).launch {
-            scanView.text = scanDao.getAll().toString()
+            scanView.text = scanDao.getUnsynced().toString()
+            totalScannedView.text = scanDao.getNumberOfColumns().toString()
         }
-        }
+
+    }
 
 
 }

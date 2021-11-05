@@ -3,12 +3,12 @@
 
     <string name="home_sync_data_btn">Sync Data with Server</string>
     <string name="home_stats_box_title">Statistics</string>
-    <string name="stats_box_today_title">Today scanned</string>
+    <string name="stats_box_today_title">Unsynced scans</string>
     <string name="stats_box_self_title">Scanned in total</string>
-    <string name="stats_box_type_title">Types registred</string>
-    <string name="stats_box_today_value">15</string>
-    <string name="stats_box_self_value">533</string>
-    <string name="stats_box_type_value">27</string>
+    <string name="stats_box_type_title">Types registered</string>
+    <string name="stats_box_today_value">-</string>
+    <string name="stats_box_self_value">-</string>
+    <string name="stats_box_type_value">-</string>
 
     <string name="home_recent_title">Recent Information</string>
 

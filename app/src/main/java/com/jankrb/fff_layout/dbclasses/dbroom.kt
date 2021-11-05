@@ -22,6 +22,15 @@ interface ScanDao{
     @Query("SELECT * FROM Scan")
     suspend fun getAll(): List<Scan>
 
+    @Query("SELECT * FROM Scan WHERE synced = 0")
+    suspend fun getUnsynced(): List<Scan>
+
+    @Query("UPDATE Scan SET synced = :synced WHERE scan_id = :scan_id")
+    suspend fun setSynced(scan_id: Int, synced: Int)
+
+    @Query("SELECT COUNT(*) FROM Scan")
+    suspend fun getNumberOfColumns(): Int
+
     @Insert
     suspend fun insertAll(vararg scans: Scan)
 
