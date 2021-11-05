@@ -188,7 +188,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                     val timestamp: String = simpleDateFormat.format(Date())
                     if (text != null) {
-                        dbqueries.addToDatabase(text, latitude, longitude, altitude, timestamp, 0)
+                        dbqueries.addToLocalDatabase(text, latitude, longitude, altitude, timestamp, 0)
                     }
                 }
             }
