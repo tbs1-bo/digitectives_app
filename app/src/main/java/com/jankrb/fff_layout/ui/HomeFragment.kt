@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
     private val descriptions: MutableList<String> = mutableListOf()
     private lateinit var scanView: TextView //um auf Objekt aus anderen Methoden zugreifen zu können
     private lateinit var totalScannedView: TextView
+    private lateinit var numberTypesView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
 
         scanView = root.findViewById(R.id.home_recent_informations)
         totalScannedView = root.findViewById(R.id.stats_box_self_value)
+        numberTypesView = root.findViewById(R.id.stats_box_types_value)
 
         val gd = GradientDrawable(
             GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop)))
@@ -100,6 +102,7 @@ class HomeFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             scanView.text = scanDao.getUnsynced().toString()
             totalScannedView.text = scanDao.getNumberOfColumns().toString()
+            numberTypesView.text = scanDao.getNumberOfTypes().toString()
         }
 
     }

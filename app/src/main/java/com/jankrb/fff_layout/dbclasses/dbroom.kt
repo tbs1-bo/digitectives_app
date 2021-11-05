@@ -25,6 +25,9 @@ interface ScanDao{
     @Query("SELECT * FROM Scan WHERE synced = 0")
     suspend fun getUnsynced(): List<Scan>
 
+    @Query("SELECT COUNT(DISTINCT insectId) FROM Scan")
+    suspend fun getNumberOfTypes(): Int
+
     @Query("UPDATE Scan SET synced = :synced WHERE scan_id = :scan_id")
     suspend fun setSynced(scan_id: Int, synced: Int)
 
