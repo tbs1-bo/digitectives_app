@@ -35,10 +35,10 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        var root = inflater.inflate(R.layout.home_fragment, container, false)
+        val root = inflater.inflate(R.layout.home_fragment, container, false)
 
         // Home Sync Btn
-        var sync_btn: Button = root.findViewById(R.id.sync_data_btn)
+        val sync_btn: Button = root.findViewById(R.id.sync_data_btn)
 
         scanView = root.findViewById(R.id.home_recent_informations)
         totalScannedView = root.findViewById(R.id.stats_box_self_value)

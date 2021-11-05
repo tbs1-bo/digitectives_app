@@ -19,7 +19,7 @@ class ScannedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var root = inflater.inflate(R.layout.scanned_fragment, container, false)
+        val root = inflater.inflate(R.layout.scanned_fragment, container, false)
 
         // Show scanner after delay of 5s
         Handler().postDelayed({ kotlin.run {

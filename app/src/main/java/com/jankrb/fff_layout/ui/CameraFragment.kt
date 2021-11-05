@@ -170,9 +170,9 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
             .addOnSuccessListener { location->
                 if (location != null) {
                     locationGPS = location
-                    var latitude = locationGPS.latitude.toString()
-                    var longitude = locationGPS.longitude.toString()
-                    var altitude = locationGPS.altitude.toString()
+                    val latitude = locationGPS.latitude.toString()
+                    val longitude = locationGPS.longitude.toString()
+                    val altitude = locationGPS.altitude.toString()
                     //
                     //only for debug, prints to console
                     Log.i("SCANNED", "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude")
