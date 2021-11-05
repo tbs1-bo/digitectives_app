@@ -27,4 +27,9 @@
     <string name="settings_autosync_subtitle">Try to syncronise the data is there is a good internet connection</string>
 
     <string name="scanned_subtitle">You\'re data has been saved.</string>
+
+    <string name="scan">scan</string>
+    <string name="id">insect id</string>
+    <string name="coordinates">coordinates</string>
+    <string name="date">date</string>
 </resources>
