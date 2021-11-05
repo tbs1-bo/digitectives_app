@@ -25,6 +25,9 @@ interface ScanDao{
     @Query("SELECT * FROM Scan WHERE synced = 0")
     suspend fun getUnsynced(): List<Scan>
 
+    @Query("SELECT COUNT(*) FROM Scan WHERE synced = 0")
+    suspend fun getNumberOfUnsynced(): Int
+
     @Query("SELECT COUNT(DISTINCT insectId) FROM Scan")
     suspend fun getNumberOfTypes(): Int
 
@@ -33,6 +36,8 @@ interface ScanDao{
 
     @Query("SELECT COUNT(*) FROM Scan")
     suspend fun getNumberOfColumns(): Int
+
+
 
     @Insert
     suspend fun insertAll(vararg scans: Scan)

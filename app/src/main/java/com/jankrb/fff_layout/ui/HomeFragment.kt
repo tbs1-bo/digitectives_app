@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var scanView: TextView //um auf Objekt aus anderen Methoden zugreifen zu können
     private lateinit var totalScannedView: TextView
     private lateinit var numberTypesView: TextView
+    private lateinit var numberUnsyncedView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
         scanView = root.findViewById(R.id.home_recent_informations)
         totalScannedView = root.findViewById(R.id.stats_box_self_value)
         numberTypesView = root.findViewById(R.id.stats_box_types_value)
+        numberUnsyncedView = root.findViewById(R.id.stats_box_unsynced_value)
 
         val gd = GradientDrawable(
             GradientDrawable.Orientation.BL_TR, intArrayOf(Color.parseColor(PrivateSettings.gradientStart), Color.parseColor(PrivateSettings.gradientStop)))
@@ -103,6 +105,7 @@ class HomeFragment : Fragment() {
             scanView.text = scanDao.getUnsynced().toString()
             totalScannedView.text = scanDao.getNumberOfColumns().toString()
             numberTypesView.text = scanDao.getNumberOfTypes().toString()
+            numberUnsyncedView.text = scanDao.getNumberOfUnsynced().toString()
         }
 
     }
