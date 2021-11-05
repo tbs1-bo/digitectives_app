@@ -3,12 +3,12 @@
 
     <string name="home_sync_data_btn">Sync Data with Server</string>
     <string name="home_stats_box_title">Statistics</string>
-    <string name="stats_box_today_title">Today scanned</string>
+    <string name="stats_box_today_title">Unsynced scans</string>
     <string name="stats_box_self_title">Scanned in total</string>
-    <string name="stats_box_type_title">Types registred</string>
-    <string name="stats_box_today_value">15</string>
-    <string name="stats_box_self_value">533</string>
-    <string name="stats_box_type_value">27</string>
+    <string name="stats_box_type_title">Types registered</string>
+    <string name="stats_box_today_value">-</string>
+    <string name="stats_box_self_value">-</string>
+    <string name="stats_box_type_value">-</string>
 
     <string name="home_recent_title">Recent Information</string>
 
@@ -27,4 +27,9 @@
     <string name="settings_autosync_subtitle">Try to syncronise the data is there is a good internet connection</string>
 
     <string name="scanned_subtitle">You\'re data has been saved.</string>
+
+    <string name="scan">scan</string>
+    <string name="id">insect id</string>
+    <string name="coordinates">coordinates</string>
+    <string name="date">date</string>
 </resources>

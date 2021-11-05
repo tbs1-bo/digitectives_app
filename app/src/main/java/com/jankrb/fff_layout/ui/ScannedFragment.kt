@@ -1,6 +1,5 @@
 package com.jankrb.fff_layout.ui
 
-import android.graphics.Camera
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
-import java.lang.Exception
 
 class ScannedFragment : Fragment() {
 
@@ -21,7 +19,7 @@ class ScannedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var root = inflater.inflate(R.layout.scanned_fragment, container, false)
+        val root = inflater.inflate(R.layout.scanned_fragment, container, false)
 
         // Show scanner after delay of 5s
         Handler().postDelayed({ kotlin.run {

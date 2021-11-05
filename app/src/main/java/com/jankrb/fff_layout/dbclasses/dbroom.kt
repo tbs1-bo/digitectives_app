@@ -8,11 +8,11 @@ import androidx.room.*
 @Entity
 data class Scan (
     @PrimaryKey(autoGenerate = true) val scan_id: Int = 0,
-    val insectId: String?,
-    val latitude: String?,
-    val longitude: String?,
-    val altitude: String?,
-    val timestamp: String?,
+    val insectId: String,
+    val latitude: String,
+    val longitude: String,
+    val altitude: String,
+    val timestamp: String,
     @ColumnInfo(defaultValue = "0") val synced: Int
 )
 
@@ -21,6 +21,23 @@ data class Scan (
 interface ScanDao{
     @Query("SELECT * FROM Scan")
     suspend fun getAll(): List<Scan>
+
+    @Query("SELECT * FROM Scan WHERE synced = 0")
+    suspend fun getUnsynced(): List<Scan>
+
+    @Query("SELECT COUNT(*) FROM Scan WHERE synced = 0")
+    suspend fun getNumberOfUnsynced(): Int
+
+    @Query("SELECT COUNT(DISTINCT insectId) FROM Scan")
+    suspend fun getNumberOfTypes(): Int
+
+    @Query("UPDATE Scan SET synced = :synced WHERE scan_id = :scan_id")
+    suspend fun setSynced(scan_id: Int, synced: Int)
+
+    @Query("SELECT COUNT(*) FROM Scan")
+    suspend fun getNumberOfColumns(): Int
+
+
 
     @Insert
     suspend fun insertAll(vararg scans: Scan)

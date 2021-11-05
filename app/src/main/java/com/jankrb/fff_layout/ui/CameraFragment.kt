@@ -8,9 +8,9 @@ import android.graphics.PointF
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.INFO
-import android.util.Log.VERBOSE
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -19,12 +19,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.jankrb.fff_layout.MainActivity
 import com.jankrb.fff_layout.R
-
 import com.jankrb.fff_layout.dbclasses.dbqueries
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 
 
 class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
@@ -173,9 +170,9 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
             .addOnSuccessListener { location->
                 if (location != null) {
                     locationGPS = location
-                    var latitude = locationGPS.latitude.toString()
-                    var longitude = locationGPS.longitude.toString()
-                    var altitude = locationGPS.altitude.toString()
+                    val latitude = locationGPS.latitude.toString()
+                    val longitude = locationGPS.longitude.toString()
+                    val altitude = locationGPS.altitude.toString()
                     //
                     //only for debug, prints to console
                     Log.i("SCANNED", "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude")
@@ -188,7 +185,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                     val timestamp: String = simpleDateFormat.format(Date())
                     if (text != null) {
-                        dbqueries.addToDatabase(text, latitude, longitude, altitude, timestamp, 0)
+                        dbqueries.addToLocalDatabase(text, latitude, longitude, altitude, timestamp, 0)
                     }
                 }
             }
