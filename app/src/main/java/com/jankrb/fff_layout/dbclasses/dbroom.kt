@@ -35,8 +35,8 @@ interface ScanDao{
     @Query("UPDATE Scan SET synced = :synced WHERE scan_id = :scan_id")
     suspend fun setSynced(scan_id: Int, synced: Int)
 
-    @Query("SELECT COUNT(*) FROM Scan")
-    suspend fun getNumberOfColumns(): Int
+    @Query("SELECT COUNT(*) FROM Scan WHERE synced = 0 OR synced = 1")
+    suspend fun getNumberOfInsects(): Int
 
 
 

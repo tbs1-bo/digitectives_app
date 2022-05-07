@@ -13,7 +13,7 @@
     <string name="home_recent_title">Noch nicht übertragen</string>
 
     <string name="info_about_title">Benutzung der App</string>
-    <string name="info_about_text">Bestimme als erstes das gefundene Insekt mit Hilfe des Steckbriefs. Dann kannst du den QR Code auf dem Steckbrief scannen. In der App werden dann automatisch Fundort und Uhrzeit  gespeichert. Diese Daten lassen sich anschließend über das Hauptmenü in die Projektdatenbank übertragen.</string>
+    <string name="info_about_text">Bestimme als erstes das gefundene Insekt mit Hilfe des Steckbriefs. Dann kannst du den QR Code auf dem Steckbrief scannen. In der App werden dann automatisch Fundort und Uhrzeit  gespeichert. Diese Daten lassen sich anschließend über das Hauptmenü in die Projektdatenbank übertragen. Zum Löschen eines Eintrags länger auf diesen drücken.</string>
 
     <string name="info_howto_title">Info</string>
     <string name="info_howto_text">Entwickelt von ITA-SchülerInnen der TBS1 Bochum.</string>

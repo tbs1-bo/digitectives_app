@@ -1,5 +1,7 @@
 package com.jankrb.fff_layout.ui
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemLongClickListener
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
@@ -23,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
+
 
 class HomeFragment : Fragment() {
 
@@ -63,6 +67,40 @@ class HomeFragment : Fragment() {
         gd.cornerRadius = 50f
         sync_btn.background = gd
 
+
+        //Lange auf Eintrag eines gescannten Insekts -> Löschen
+        listView.onItemLongClickListener =
+            OnItemLongClickListener { arg0, arg1, pos, id ->
+                val dialogBuilder = AlertDialog.Builder(this.context)
+                val listItem: Any = listView.getItemAtPosition(pos)
+
+                dialogBuilder.setMessage("Eintrag löschen?")
+                    .setCancelable(false)
+                    .setPositiveButton("Ja", DialogInterface.OnClickListener {
+                            dialog, id -> setSynced(listItem.toString().toInt(),3)
+                    })
+                    // negative button text and action
+                    .setNegativeButton("Nein", DialogInterface.OnClickListener {
+                            dialog, id -> dialog.cancel()
+                    })
+
+
+                // create dialog box
+                val alert = dialogBuilder.create()
+                // set title for alert dialog box
+                alert.setTitle("Warnung:")
+                // show alert dialog
+                alert.show()
+
+                Log.i("long clicked", "pos: $pos")
+
+                Log.i("long clicked", listItem.toString())
+
+                true
+            }
+
+
+        //Synchronisieren Button
         sync_btn.setOnClickListener {
             val scanDao: ScanDao = dbvar.scanDao()
             var unsyncedData: List<Scan>
@@ -119,17 +157,18 @@ class HomeFragment : Fragment() {
                 createdAts.toTypedArray()
             )
             listView.adapter = infoAdapter
-            totalScannedView.text = scanDao.getNumberOfColumns().toString()
+            totalScannedView.text = scanDao.getNumberOfInsects().toString()
             numberTypesView.text = scanDao.getNumberOfTypes().toString()
             numberUnsyncedView.text = scanDao.getNumberOfUnsynced().toString()
+
         }
 
     }
 
-    private fun setSynced(scan_id: Int) {
+    private fun setSynced(scan_id: Int, value: Int) {
         val scanDao: ScanDao = dbvar.scanDao()
         CoroutineScope(Dispatchers.Main).launch {
-            scanDao.setSynced(scan_id, 1)
+            scanDao.setSynced(scan_id, value)
             updateDataShown()
         }
     }
@@ -174,7 +213,7 @@ class HomeFragment : Fragment() {
                         if (!response.isSuccessful) throw IOException("Unexpected code $response")
                         else {
                             Log.i("respone", "Erfolgreich!")
-                            setSynced(scanID)
+                            setSynced(scanID, 1)
 
                         }
 
