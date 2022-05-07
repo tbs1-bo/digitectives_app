@@ -64,7 +64,8 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         }
 
         // Create GPS Location Manager
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context as MainActivity)
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(context as MainActivity)
 
         return root
     }
@@ -137,7 +138,8 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         if (requestCode == requestCodePermission && grantResults.isNotEmpty()) { // Callback is not empty
             for (result in grantResults) {
                 if (result == PackageManager.PERMISSION_DENIED) {
-                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show() // Callback permission is denied
+                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT)
+                        .show() // Callback permission is denied
                     return
                 }
             }
@@ -160,45 +162,55 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         if (ActivityCompat.checkSelfPermission(
                 context as MainActivity,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) {
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             askForPermission() // Request permission, if has no permissions
         }
 
-        var locationGPS: Location
+        if (text != null) {
+            //Split QR Code Text in insect name & insect id
+            val splittedText = text.split("#")
+            if (splittedText.size == 2) {
+                var locationGPS: Location
 
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location->
-                if (location != null) {
-                    locationGPS = location
-                    val latitude = locationGPS.latitude.toString()
-                    val longitude = locationGPS.longitude.toString()
-                    val altitude = locationGPS.altitude.toString()
-                    //
-                    //only for debug, prints to console
-                    Log.i("SCANNED", "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude")
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location ->
+                        if (location != null) {
+                            locationGPS = location
+                            val latitude = locationGPS.latitude.toString()
+                            val longitude = locationGPS.longitude.toString()
+                            val altitude = locationGPS.altitude.toString()
+                            //
+                            //only for debug, prints to console
+                            Log.i(
+                                "SCANNED",
+                                "Breitengrad: $latitude / Breitengrad: $longitude / Altitude: $altitude"
+                            )
 
-/*                    val timestamp = java.time.format.DateTimeFormatter
-                        .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-                        .withZone(java.time.ZoneOffset.UTC)
-                        .format(java.time.Instant.now())
-                        .toString()*/
-                    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                    val timestamp: String = simpleDateFormat.format(Date())
-                    if (text != null) {
-                        dbqueries.addToLocalDatabase(text, latitude, longitude, altitude, timestamp, 0)
+                            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                            val timestamp: String = simpleDateFormat.format(Date())
+
+                            dbqueries.addToLocalDatabase(
+                                splittedText[0],
+                                splittedText[1],
+                                latitude,
+                                longitude,
+                                altitude,
+                                timestamp,
+                                0
+                            )
+                        }
                     }
-                }
+                showFragment(ScannedFragment())
             }
-
-        showFragment(ScannedFragment())
+        }
     }
-
 
 
     override fun onResume() {
         super.onResume()
         qrCodeReaderView.startCamera()
-         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onPause() {
