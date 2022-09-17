@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fit for Future</string>
+    <string name="app_name">bumblebee</string>
 
     <string name="home_sync_data_btn">Daten übertragen</string>
     <string name="home_stats_box_title">Statistik</string>

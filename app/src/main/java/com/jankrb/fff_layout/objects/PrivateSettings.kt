@@ -6,6 +6,6 @@ object PrivateSettings {
     var gradientStop: String = "#2B84BE"
 
     var customTitle: Boolean = true
-    var appTitle: String = "Fit for Future"
+    var appTitle: String = "bumblebee"
 
 }
