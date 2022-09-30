@@ -35,7 +35,7 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         Manifest.permission.CAMERA,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
-    private lateinit var qrCodeReaderView: QRCodeReaderView
+    private var qrCodeReaderView: QRCodeReaderView? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var root: View
@@ -57,7 +57,8 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
-            setupControls() // Start camera and gps, if permissions granted
+            // Start camera and gps, if permissions granted
+            setupControls()
         } else {
             askForPermission() // Ask for permissions
             // TODO: Possible error on oppo phones. Oppo phones seems to use another permission api
@@ -75,22 +76,22 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
      */
     private fun setupControls() {
         qrCodeReaderView = root.findViewById(R.id.cameraSurfaceView)
-        qrCodeReaderView.setOnQRCodeReadListener(this)
+        qrCodeReaderView!!.setOnQRCodeReadListener(this)
 
         // Use this function to enable/disable decoding
-        qrCodeReaderView.setQRDecodingEnabled(true)
+        qrCodeReaderView!!.setQRDecodingEnabled(true)
 
         // Use this function to change the autofocus interval (default is 5 secs)
-        qrCodeReaderView.setAutofocusInterval(2000L)
+        qrCodeReaderView!!.setAutofocusInterval(2000L)
 
         // Use this function to enable/disable Torch
-        qrCodeReaderView.setTorchEnabled(true)
+        qrCodeReaderView!!.setTorchEnabled(true)
 
         // Use this function to set front camera preview
-        qrCodeReaderView.setFrontCamera()
+        qrCodeReaderView!!.setFrontCamera()
 
         // Use this function to set back camera preview
-        qrCodeReaderView.setBackCamera()
+        qrCodeReaderView!!.setBackCamera()
     }
 
     /**
@@ -98,11 +99,12 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
      */
     private fun askForPermission() {
         if (!hasPermissions(context, permissions)) {
-            ActivityCompat.requestPermissions(
-                context as MainActivity,
-                permissions,
-                requestCodePermission
-            )
+            requestPermissions(permissions, requestCodePermission)
+            //ActivityCompat.requestPermissions(
+            //  context as MainActivity,
+            //  permissions,
+            //  requestCodePermission
+            //)
         }
     }
 
@@ -209,13 +211,18 @@ class CameraFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
 
     override fun onResume() {
         super.onResume()
-        qrCodeReaderView.startCamera()
+        // Camera can only be started when qrCodeReaderView has been initialized
+        if(qrCodeReaderView != null) {
+            qrCodeReaderView!!.startCamera()
+        }
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onPause() {
         super.onPause()
-        qrCodeReaderView.stopCamera()
+        if(qrCodeReaderView != null) {
+            qrCodeReaderView!!.stopCamera()
+        }
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 }
