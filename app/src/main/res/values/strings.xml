@@ -26,7 +26,7 @@
     <string name="settings_autosync_title">Auto-Sync</string>
     <string name="settings_autosync_subtitle">Hinweis: Die Einstellungen funktionieren noch nicht.</string>
 
-    <string name="scanned_subtitle">Insekt erfasst.</string>
+    <string name="scanned_subtitle">Insekt erfasst! Warte noch %d Sek.</string>
 
     <string name="scan">scan</string>
     <string name="id">insect id</string>
