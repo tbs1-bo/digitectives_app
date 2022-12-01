@@ -18,4 +18,6 @@
     <string name="settings_autosync_title">Auto-Sync</string>
     <string name="scanned_subtitle">Insekt erfasst! Warte noch %d Sek.</string>
     <string name="settings_autosync_subtitle">Hinweis: Die Einstellungen funktionieren noch nicht.</string>
+
+    <string name="settings_language_changed_message">Die Sprache wurde zu %d geändert. Neustart erforderlich!</string>
 </resources>

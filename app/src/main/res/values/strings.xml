@@ -31,5 +31,5 @@
     <string name="scanned_subtitle">Insect captured! Please wait %d sec.</string>
     <string name="settings_autosync_subtitle">Note: The settings do not work yet.</string>
 
-    <string name="settings_language_changed_message" translatable="false">The language has been changed to %d. Restart required!</string>
+    <string name="settings_language_changed_message">The language has been changed to %d. Restart required!</string>
 </resources>

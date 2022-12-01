@@ -48,9 +48,7 @@ class SettingsFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                if(view == null) {
-                    return;
-                }
+                if(view == null) return
 
                 if(createSelection) {
                     createSelection = false
