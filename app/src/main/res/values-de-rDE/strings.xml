@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">bumblebee</string>
+    <string name="home_sync_data_btn">Daten übertragen</string>
+    <string name="home_stats_box_title">Statistik</string>
+    <string name="stats_box_today_title">Zu übertragen</string>
+    <string name="stats_box_self_title">Bisher erfasst</string>
+    <string name="stats_box_type_title">Erfasste Arten</string>
+    <string name="home_recent_title">Noch nicht übertragen</string>
+    <string name="info_about_title">Benutzung der App</string>
+    <string name="info_about_text">Bestimme als erstes das gefundene Insekt mit Hilfe des Steckbriefs. Dann kannst du den QR Code auf dem Steckbrief scannen. In der App werden dann automatisch Fundort und Uhrzeit  gespeichert. Diese Daten lassen sich anschließend über das Hauptmenü in die Projektdatenbank übertragen. Zum Löschen eines Eintrags länger auf diesen drücken.</string>
+    <string name="info_howto_title">Info</string>
+    <string name="info_howto_text">Entwickelt von ITA-SchülerInnen der TBS1 Bochum.</string>
+    <string name="info_sync_title">Kontakt</string>
+    <string name="info_sync_text">kaiser@tbs1.de</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="settings_language_title">Sprache</string>
+    <string name="settings_autosync_title">Auto-Sync</string>
+    <string name="scanned_subtitle">Insekt erfasst! Warte noch %d Sek.</string>
+    <string name="settings_autosync_subtitle">Hinweis: Die Einstellungen funktionieren noch nicht.</string>
+</resources>

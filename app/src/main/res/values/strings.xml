@@ -1,35 +1,35 @@
 <resources>
     <string name="app_name">bumblebee</string>
 
-    <string name="home_sync_data_btn">Daten übertragen</string>
-    <string name="home_stats_box_title">Statistik</string>
-    <string name="stats_box_today_title">Zu übertragen</string>
-    <string name="stats_box_self_title">Bisher erfasst</string>
-    <string name="stats_box_type_title">Erfasste Arten</string>
-    <string name="stats_box_today_value">-</string>
-    <string name="stats_box_self_value">-</string>
-    <string name="stats_box_type_value">-</string>
+    <string name="home_sync_data_btn">Transmit data</string>
+    <string name="stats_box_type_title">Species covered</string>
+    <string name="stats_box_today_value" translatable="false">-</string>
+    <string name="stats_box_self_value" translatable="false">-</string>
+    <string name="stats_box_type_value" translatable="false">-</string>
 
-    <string name="home_recent_title">Noch nicht übertragen</string>
-
-    <string name="info_about_title">Benutzung der App</string>
-    <string name="info_about_text">Bestimme als erstes das gefundene Insekt mit Hilfe des Steckbriefs. Dann kannst du den QR Code auf dem Steckbrief scannen. In der App werden dann automatisch Fundort und Uhrzeit  gespeichert. Diese Daten lassen sich anschließend über das Hauptmenü in die Projektdatenbank übertragen. Zum Löschen eines Eintrags länger auf diesen drücken.</string>
+    <string name="info_about_title">Use of the app</string>
+    <string name="info_about_text">First, identify the insect you found with the help of the fact sheet. Then you can scan the QR code on the flyer. The app then automatically saves the location and time of discovery. This data can then be transmitted to the project database via the main menu. To delete an entry, press and hold on it.</string>
 
     <string name="info_howto_title">Info</string>
-    <string name="info_howto_text">Entwickelt von ITA-SchülerInnen der TBS1 Bochum.</string>
+    <string name="info_howto_text">Developed by ITA students at TBS1 Bochum.</string>
 
-    <string name="info_sync_title">Kontakt</string>
-    <string name="info_sync_text">kaiser@tbs1.de </string>
+    <string name="info_sync_title">Contact</string>
+    <string name="info_sync_text" translatable="false">kaiser@tbs1.de</string>
 
-    <string name="title_settings">Einstellungen</string>
     <string name="settings_language_title">Language</string>
     <string name="settings_autosync_title">Auto-Sync</string>
-    <string name="settings_autosync_subtitle">Hinweis: Die Einstellungen funktionieren noch nicht.</string>
 
-    <string name="scanned_subtitle">Insekt erfasst! Warte noch %d Sek.</string>
+    <string name="scan" translatable="false">scan</string>
+    <string name="id" translatable="false">insect id</string>
+    <string name="coordinates" translatable="false">coordinates</string>
+    <string name="date" translatable="false">date</string>
+    <string name="home_stats_box_title">Statistic</string>
+    <string name="stats_box_today_title">To be transmitted</string>
+    <string name="stats_box_self_title">Recorded so far</string>
+    <string name="home_recent_title">Not transmitted yet</string>
+    <string name="title_settings">Settings</string>
+    <string name="scanned_subtitle">Insect captured! Please wait %d sec.</string>
+    <string name="settings_autosync_subtitle">Note: The settings do not work yet.</string>
 
-    <string name="scan">scan</string>
-    <string name="id">insect id</string>
-    <string name="coordinates">coordinates</string>
-    <string name="date">date</string>
+    <string name="settings_language_changed_message" translatable="false">The language has been changed to %d. Restart required!</string>
 </resources>

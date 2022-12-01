@@ -2,10 +2,13 @@ package com.jankrb.fff_layout
 
 import android.annotation.SuppressLint
 import android.app.ActionBar
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,9 +22,20 @@ import com.jankrb.fff_layout.ui.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        lateinit var preferences: SharedPreferences
+    }
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        // Set selected language
+        val languageConfiguration = LanguageConfiguration()
+        languageConfiguration.setLanguage(this, preferences.getString("selected_language", "en")!!)
+
         setContentView(R.layout.main_activity)
 
         val homeFragment = HomeFragment()
