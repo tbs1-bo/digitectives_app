@@ -19,6 +19,7 @@ import com.jankrb.fff_layout.R
 import com.jankrb.fff_layout.dbclasses.Scan
 import com.jankrb.fff_layout.dbclasses.ScanDao
 import com.jankrb.fff_layout.dbclasses.dbvar
+import com.jankrb.fff_layout.handlers.OnlineDatabaseSyncHandler
 import com.jankrb.fff_layout.home.HomeNewsListAdapter
 import com.jankrb.fff_layout.objects.PrivateSettings
 import kotlinx.coroutines.CoroutineScope
@@ -107,8 +108,9 @@ class HomeFragment : Fragment() {
 
             CoroutineScope(Dispatchers.Main).launch {
                 unsyncedData = scanDao.getUnsynced()
+                val onlineDatabaseSyncHandler = OnlineDatabaseSyncHandler(this@HomeFragment)
                 for (element in unsyncedData) {
-                    sendToOnlineDatabase(
+                    onlineDatabaseSyncHandler.sendToDatabase(
                         element.scan_id,
                         element.insectId,
                         element.latitude,
@@ -165,69 +167,11 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun setSynced(scan_id: Int, value: Int) {
+    fun setSynced(scan_id: Int, value: Int) {
         val scanDao: ScanDao = dbvar.scanDao()
         CoroutineScope(Dispatchers.Main).launch {
             scanDao.setSynced(scan_id, value)
             updateDataShown()
         }
     }
-
-    private fun sendToOnlineDatabase(
-        scanID: Int,
-        insectID: String,
-        latitude: String,
-        longitude: String,
-        altitude: String,
-        timestamp: String
-    ) {
-
-        val client = OkHttpClient()
-
-        val formBody = FormBody.Builder()
-            .add("insect_id", insectID)
-            .add("user_id", "1")
-            .add("device_id", "1")
-            .add("latitude", latitude)
-            .add("longitude", longitude)
-            .add("altitude", altitude)
-            .add("log_date", timestamp)
-            .build()
-
-        val request = Request.Builder()
-            .url("http:/85.235.65.8/insert_post.php")
-            .post(formBody)
-            .build()
-
-        //enqueue: wird i.d.R. sofort aufgerufen, es sei denn es gibt zu viele Requests
-        //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-call/enqueue/
-        //Standard Timeout: 10s
-        client.newCall(request).enqueue(
-            object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    response.use {
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                        else {
-                            Log.i("respone", "Erfolgreich!")
-                            setSynced(scanID, 1)
-
-                        }
-
-                        for ((name, value) in response.headers) {
-                            Log.i("response", "$name: $value")
-                        }
-
-                        println(response.body!!.string())
-                    }
-                }
-            }
-        )
-
-    }
-
-
 }

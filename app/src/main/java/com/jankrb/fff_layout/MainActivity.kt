@@ -2,7 +2,6 @@ package com.jankrb.fff_layout
 
 import android.annotation.SuppressLint
 import android.app.ActionBar
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -13,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jankrb.fff_layout.handlers.LanguageConfiguration
 import com.jankrb.fff_layout.objects.PrivateSettings
 import com.jankrb.fff_layout.ui.CameraFragment
 import com.jankrb.fff_layout.ui.HomeFragment
