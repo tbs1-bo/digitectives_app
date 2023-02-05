@@ -69,7 +69,7 @@ class OnlineDatabaseSyncHandler(val homeFragment: HomeFragment) {
         if(deviceID != null) return deviceID
 
         // Generate and save new device id
-        deviceID = generateDeviceId(255)
+        deviceID = generateDeviceId(20)
         MainActivity.preferences.edit().putString(preferenceKey, deviceID)
             .apply()
 
