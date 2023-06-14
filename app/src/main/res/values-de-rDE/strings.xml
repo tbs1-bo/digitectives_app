@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">bumblebee</string>
+    <string name="app_name">digitectives@work</string>
     <string name="home_sync_data_btn">Daten übertragen</string>
     <string name="home_stats_box_title">Statistik</string>
     <string name="stats_box_today_title">Zu übertragen</string>
