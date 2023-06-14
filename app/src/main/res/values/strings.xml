@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">bumblebee</string>
+    <string name="app_name">digitectives@work</string>
 
     <string name="home_sync_data_btn">Transmit data</string>
     <string name="stats_box_type_title">Species covered</string>
