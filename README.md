@@ -1,9 +1,9 @@
 # digitectives_app
-Android App designed to record insect populations. Created as a part of an Erasmus+ project.
+Android app designed to record insect populations, created as a part of an Erasmus+ project.
 
 1. Download insect fact sheets from our [project homepage](http://v2202109155669162177.bestsrv.de/).
 2. Identify insects using the fact sheets.
-3. Use the digitectives app the scan the QR code on the corresponding fact sheet. Insect, Location and time of the discovery will be automatically logged.
+3. Use the Digitectives app the scan the QR code on the corresponding fact sheet. Insect, location and time of the discovery will be automatically logged.
 4. Transmit your logs to our project database via the main menu.
 
 
